@@ -1,13 +1,13 @@
 import random
-from collections import Counter  # Added for accurate duplicate letter handling
+from collections import Counter
 
-game_name = "Word Raider"
+game_name = "Wordle --> Word Raider"
 word_bank = []
 
-with open('C:/Users/patsy/Desktop/python-exercise/words.txt') as word_file:
+with open(r'C:\your\path\words.txt') as word_file:
     for line in word_file:
         stripped = line.rstrip().lower()
-        if stripped:  # Skip empty lines
+        if stripped:
             word_bank.append(stripped)
 
 selected_word = random.choice(word_bank)
@@ -28,12 +28,12 @@ while used_turns < max_turns:
     if guess == 'stop':
         break
 
-    # FIXED: Dynamic length validation (was hardcoded to 5 letters)
+    # Dynamic length validation (was hardcoded to 5 letters)
     if len(guess) != len(selected_word) or not guess.isalpha():
         print(f'Please enter a {len(selected_word)}-letter word.')
         continue
 
-    # FIXED: Accurate feedback using two-pass algorithm for duplicate letters
+    # Accurate feedback using two-pass algorithm for duplicate letters
     remaining_letters = Counter(selected_word)
     feedback = ['_'] * len(guess)
     current_misplaced = []
@@ -48,7 +48,7 @@ while used_turns < max_turns:
     # Second pass: misplaced letters
     for i, letter in enumerate(guess):
         if feedback[i] == '_' and remaining_letters.get(letter, 0) > 0:
-            feedback[i] = f'[{letter}]'  # FIXED: Visually show misplaced letters
+            feedback[i] = f'[{letter}]'
             current_misplaced.append(letter)
             remaining_letters[letter] -= 1
         elif feedback[i] == '_':
@@ -57,7 +57,7 @@ while used_turns < max_turns:
     # Display feedback
     print(' '.join(feedback))
 
-    # FIXED: Typo correction
+    # Typo correction
     if guess == selected_word:
         print("\nCongratulations! You guessed the word!")
         break
@@ -80,4 +80,5 @@ while used_turns < max_turns:
     print()
     print(f'Misplaced letters: {misplaced_letters}')
     print(f'Incorrect letters: {incorrect_letters}')
+
     print(f'You have {max_turns - used_turns} turns left')
