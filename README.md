@@ -1,5 +1,5 @@
 
-## 🎯 Wordle --> Word Raider
+# 🎯 Wordle --> Word Raider
 Inspired by wordle
 
 A terminal-based word guessing game inspired by Wordle. Test your vocabulary and deduction skills to guess the hidden word within 6 turns!
